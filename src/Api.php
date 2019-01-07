@@ -90,8 +90,36 @@ class Api
         $status   = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
+        if ($status == 200)
+        {
+            return json_decode($response, true);
+        }
+        else
+        {
+            /* Debug */
+            var_dump($response);
+            var_dump($status);
+            echo "\nHTTP Status: " . $status . "\n";
+            exit(0);
+        }
+        return false;
+    }
 
-        /* var_dump($response);die; */
+    private function requestPublic($coin, $method)
+    {
+        $ch = curl_init();
+        $options = Array(
+            CURLOPT_USERAGENT      => urlencode('Módulo de API Mercado Bitcoin em PHP ' . $this->version),
+            CURLOPT_RETURNTRANSFER => true,
+        );
+
+        $options[CURLOPT_URL]  = $this->baseUrl . "/api/" . $coin . '/' . $method . '/';
+
+        curl_setopt_array($ch, $options);
+
+        $response = curl_exec($ch);
+        $status   = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
 
         if ($status == 200)
         {
@@ -122,5 +150,9 @@ class Api
         $params["tapi_nonce"] = $nonce;
 
         return $this->doRequest("POST", $params, $header);
+    }
+
+    public function ticker($coin) {
+        return $this->requestPublic($coin, 'ticker');
     }
 }
