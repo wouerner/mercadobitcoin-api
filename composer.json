@@ -1,0 +1,24 @@
+{
+    "name": "wouerner/mercadobitcoin-api",
+    "description": "mercadobitcoin-api",
+    "keywords": ["api",  "mercadobitcoin"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Wouenrer",
+            "email": "wouerner@protonmail.com"
+        }
+    ],
+    "type": "project",
+    "require": {
+		"php": ">=7.1"
+    },
+    "require-dev": {
+		"phpunit/phpunit": "6.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Wouerner\\MercadoBitcoin\\": "src/"
+        }
+    }
+}
